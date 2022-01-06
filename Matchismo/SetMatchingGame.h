@@ -11,6 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SetMatchingGame : CardMatchingGame
 
+-(void) reinitializePotentialSet;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

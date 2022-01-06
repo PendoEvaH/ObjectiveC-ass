@@ -11,10 +11,12 @@
 #import "CardMatchingGame.h"
 #import "ScoresInfoViewController.h"
 #import "Card.h"
+#import "SetMatchingGame.h"
 #import "SetGameCard.h"
 
 @interface SetGameViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *roundNumberDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *roundButton;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
@@ -22,15 +24,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentsOnGame;
 @property (nonatomic) NSArray *set;
 @property (strong, nonatomic) Deck *deck;
-@property (nonatomic,strong) CardMatchingGame *game;
+@property (nonatomic,strong) SetMatchingGame *game;
 @property (nonatomic) NSInteger nbRounds;
-@property (nonatomic) NSString *roundsDesciption;
+@property (strong, nonatomic) NSMutableArray *roundsDesciption;
 @end
 
 @implementation SetGameViewController
--(CardMatchingGame *)game
+-(SetMatchingGame *)game
 {
-    if(!_game) _game = [[CardMatchingGame alloc] initWithCardCount:12 usingDeck:[self createDeck]];
+    if(!_game) _game = [[SetMatchingGame alloc] initWithCardCount:12 usingDeck:[self createDeck]];
     return _game;
 }
 
@@ -47,32 +49,50 @@
     return _deck;
 }
 
+
+
+
+
+
 - (Deck *)createDeck
 {
     return [[SetGameCarddeck alloc] init];
 }
 
+
+-  (NSMutableArray* ) roundsDesciption {
+    if (!_roundsDesciption) _roundsDesciption = [[NSMutableArray alloc] init];
+    return _roundsDesciption;
+}
+
+
 - (IBAction)touchCard:(UIButton *)sender {
     NSUInteger cardIndex = [self.cardButtons indexOfObject:sender]; //we want to know which card and get his index
-    [self.game chooseCardForSetAtIndex:cardIndex];
+    [self.game chooseCardAtIndex:cardIndex];
     [self updateUI]; //keep UI sync with model
 }
     
 - (IBAction)startNewGame:(id)sender {
-    
+   
     for (UIButton *cardButton in self.cardButtons) { //to show cards
         cardButton.hidden = NO;
         
     }
     self.nbRounds += 1;
-    self.roundsDesciption = [self.roundsDesciption stringByAppendingString:[NSString stringWithFormat:@"Round %ld - score: %ld", self.nbRounds, self.game.score]];
-    _game = [[CardMatchingGame alloc] initWithCardCount:12 usingDeck:[self createDeck]];
     
-    [self.game updateMode:3];
+    self.game = [[SetMatchingGame alloc] initWithCardCount:12 usingDeck:[self createDeck]];
+    
     [self updateUI];
 }
 
 - (void)updateUI {
+    if (self.nbRounds >0) {
+        
+        NSString *description = [NSString stringWithFormat:@"Round %ld - score: %ld", self.nbRounds, self.game.score];
+        self.roundsDesciption[self.nbRounds - 1] = description;
+       
+    
+    }
     for(UIButton *cardButton in self.cardButtons) {
         NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardIndex];
@@ -81,6 +101,7 @@
           cardButton.backgroundColor = colorCard;
     }
     self.scoreLabel.text  = [NSString stringWithFormat:@"Score: %ld", self.game.score];
+    self.roundNumberDescriptionLabel.text  = [NSString stringWithFormat:@"Round %ld", self.nbRounds];
     self.commentsOnGame.text  = [NSString stringWithFormat:@"%@", self.game.comment];
     if([self.commentsOnGame.text isEqualToString:@"You get a set!! you get 10 points!"]) {
         [self.game reinitializePotentialSet];
@@ -103,5 +124,16 @@
 //    //????
 //}
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender //send for new view the content of the text for analyze it and get details on the stats
+{
+    if([segue.identifier isEqualToString:@"toSetGameScores"]) {
+        if([segue.destinationViewController isKindOfClass:[ScoresInfoViewController class]]) {
+            ScoresInfoViewController *svc = (ScoresInfoViewController *) segue.destinationViewController;
+            svc.scoresPerRound = self.roundsDesciption;
+            NSLog(@"send to svc : %@", svc.scoresPerRound);
+        }
+    }
+ 
+}
 
 @end

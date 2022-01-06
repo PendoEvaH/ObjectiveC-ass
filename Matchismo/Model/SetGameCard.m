@@ -30,7 +30,7 @@
         (!(self.rank == card2.rank) && !(card2.rank == card3.rank))) {
         rankCondition = YES;
     }
-    NSLog(@"rank are: %lu, %d, %d", self.rank, card2.rank, card3.rank);
+    NSLog(@"rank are: %lu, %lu, %lu", self.rank, card2.rank, card3.rank);
     
     int score = 0;
     

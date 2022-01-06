@@ -9,8 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ScoresInfoViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UITextView *RoundsDescription;
+@interface ScoresInfoViewController : UITableViewController
+@property (nonatomic, strong) NSArray *scoresPerRound;
 @end
 
 NS_ASSUME_NONNULL_END

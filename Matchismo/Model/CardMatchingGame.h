@@ -9,22 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "Deck.h"
 
-
 @interface CardMatchingGame : NSObject
 
-- (instancetype) initWithCardCount:(NSInteger) count usingDeck:(Deck *) deck;
 
--(void) chooseCardAtIndex:(NSUInteger) index;
-- (void)chooseCardForSetAtIndex:(NSUInteger)index; //SET GAME
+
+//-(void) chooseCardAtIndex:(NSUInteger) index;
+
 -(Card *) cardAtIndex:(NSUInteger) index;
 -(void) initScore;
 -(void) updateMode:(NSUInteger) mode;
--(void) reinitializePotentialSet;
+- (instancetype) initWithCardCount:(NSInteger) count usingDeck:(Deck *) deck;
+- (void)chooseCardAtIndex:(NSUInteger)index;
 
-@property (nonatomic, readonly) NSInteger score;
+@property (nonatomic) NSInteger score;
 @property (nonatomic,) NSMutableString *comment;
-@property (nonatomic) NSInteger gameMode;
+@property (nonatomic) NSMutableArray *cards;
 @property (nonatomic) NSInteger gameStep;
+//@property (nonatomic) NSInteger gameMode;
+//@property (nonatomic) NSInteger gameStep;
 @end
 
 
