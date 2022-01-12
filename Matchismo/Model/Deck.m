@@ -1,6 +1,5 @@
 //
 //  Deck.m
-//  Matchismo
 //  Created by Eva Hallermeier on 03/11/2021.
 
 #import "Deck.h"
@@ -12,23 +11,20 @@
 @implementation Deck
 
 - (NSMutableArray *)cards {
-    if(!_cards) _cards = [[NSMutableArray alloc] init]; //allocate memory to store the array of cards
+    if(!_cards) _cards = [[NSMutableArray alloc]init]; //allocate memory to store the array of cards
     return _cards;
 }
 
--(void)addCard:(Card*)card atTop:(BOOL)atTop {
-    NSLog(@"add card");
-    NSLog(@"self.cards count is %lu", [self.cards count] );
-    if(atTop){
+- (void)addCard:(Card*)card atTop:(BOOL)atTop {
+    if (atTop) {
         [self.cards insertObject:card atIndex:0];
     } else {
         [self.cards addObject:card];
     }
 }
 
--(void)addCard:(Card*)card {
+- (void)addCard:(Card*)card {
     [self addCard: card atTop:NO];
-
 }
 
 - (Card *)drawRandomCard {
@@ -40,7 +36,3 @@
 }
 
 @end
-
-
-
-

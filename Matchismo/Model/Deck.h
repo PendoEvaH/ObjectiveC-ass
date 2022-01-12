@@ -1,7 +1,5 @@
 //
 //  Deck.h
-//  Matchismo
-//
 //  Created by Eva Hallermeier on 03/11/2021.
 //
 

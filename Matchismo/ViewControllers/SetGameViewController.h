@@ -1,7 +1,5 @@
 //
 //  SetGameViewController.h
-//  Matchismo
-//
 //  Created by Eva Hallermeier on 30/12/2021.
 //
 
