@@ -58,7 +58,7 @@ static const int COST_TO_CHOOSE = 1;
             for (Card *otherCard in self.cards) {
                 if (otherCard.chosen && !otherCard.matched) {
                     int matchScore = [card match:@[otherCard]];
-                    if (matchScore) { //bigger than 0
+                    if (matchScore) {
                         NSInteger addedScore = matchScore * MATCH_BONUS * self.gameMode;
                         self.score =  self.score + addedScore;
                         card.matched = YES;
@@ -99,9 +99,7 @@ static const int COST_TO_CHOOSE = 1;
                 if (otherCard.chosen && !otherCard.matched) {
                     for (Card *otherCard1 in self.cards) {
                         if (otherCard1.chosen && !otherCard1.matched && ![otherCard.contents isEqualToString: otherCard1.contents]) {
-                            int matchScore = [card match:@[otherCard1]] + [card match:@[otherCard]]; //call match method in Card
-                            //in case 0 - not match
-                            //not 0 -we have match : hight score will be high match
+                            int matchScore = [card match:@[otherCard1]] + [card match:@[otherCard]];
                             if (matchScore > 1) {
                                 self.comment = [NSMutableString stringWithFormat:@"Matched %@  %@  %@" ,card.contents, otherCard.contents, otherCard1.contents];
                                 self.score =  self.score + (3 * MATCH_BONUS);
@@ -117,7 +115,7 @@ static const int COST_TO_CHOOSE = 1;
                 }
             }
             self.score -= COST_TO_CHOOSE;
-            card.chosen = YES; //call set
+            card.chosen = YES;
         }
     }
 }

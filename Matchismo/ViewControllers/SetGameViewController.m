@@ -39,7 +39,6 @@
     return _nbRounds;
 }
 
-//instantiate property of deck
 - (Deck *)deck {
     if (!_deck) _deck = [self createDeck];
     return _deck;
@@ -55,13 +54,13 @@
 }
 
 - (IBAction)touchCard:(UIButton *)sender {
-    NSUInteger cardIndex = [self.cardButtons indexOfObject:sender]; //we want to know which card and get his index
+    NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:cardIndex];
-    [self updateUI]; //keep UI sync with model
+    [self updateUI];
 }
     
 - (IBAction)startNewRound:(id)sender {
-    for (UIButton *cardButton in self.cardButtons) { //to show cards
+    for (UIButton *cardButton in self.cardButtons) {
         cardButton.hidden = NO;
     }
     self.nbRounds += 1;
@@ -70,7 +69,9 @@
 }
 
 - (void)updateUI {
+    if (self.game.setContent) {
         self.setContent.text = [NSString stringWithFormat:@"%@", self.game.setContent];
+    }
     if (self.nbRounds > 0) {
         NSString *description = [NSString stringWithFormat:@"Round %ld - score: %ld", self.nbRounds, self.game.score];
         self.roundsResults[self.nbRounds - 1] = description;
@@ -86,17 +87,14 @@
     self.roundNumberLabel.text  = [NSString stringWithFormat:@"Round %ld", self.nbRounds];
     self.commentsOnGame.text  = [NSString stringWithFormat:@"%@", self.game.comment];
     if([self.commentsOnGame.text isEqualToString:@"You get a set!! you get 10 points!"]) {
-        
         [self.game reinitializePotentialSet];
     }
-    
 }
 
 - (NSString *)titleForCard:(Card *)card {
     return card.contents;
 }
 
-//send for new view the content of the text for analyze it and get details on the stats
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"toSetGameScores"]) {
         if([segue.destinationViewController isKindOfClass:[ScoresInfoViewController class]]) {

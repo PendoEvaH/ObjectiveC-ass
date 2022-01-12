@@ -5,13 +5,13 @@
 #import "Deck.h"
 
 @interface Deck()
-@property (strong, nonatomic) NSMutableArray *cards;   //arrray of cards
+@property (strong, nonatomic) NSMutableArray *cards;//arrray of cards
 
 @end
 @implementation Deck
 
 - (NSMutableArray *)cards {
-    if(!_cards) _cards = [[NSMutableArray alloc]init]; //allocate memory to store the array of cards
+    if(!_cards) _cards = [[NSMutableArray alloc]init];
     return _cards;
 }
 

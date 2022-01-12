@@ -25,7 +25,6 @@
 
 @implementation MatchismoViewController
 
-//get method for property game
 - (CardMatchingGame *)game {
     if(!_game) _game = [[MatchismoMatchingGame alloc] initWithCardCount:30 usingDeck:[self createDeck]];
     return _game;
@@ -57,13 +56,13 @@
 
 - (void)startNewGame {
     self.nbRounds += 1;
-    NSInteger mode = [self.gameMode selectedSegmentIndex]; //get mode chosen by user
+    NSInteger mode = [self.gameMode selectedSegmentIndex];
     if (mode == 0) {
         [self.gameMode setEnabled:YES forSegmentAtIndex:1];
     } else {
         [self.gameMode setEnabled:YES forSegmentAtIndex:0];
     }
-    _game = [[MatchismoMatchingGame alloc] initWithCardCount:30 usingDeck:[self createDeck]]; //define new game
+    _game = [[MatchismoMatchingGame alloc] initWithCardCount:30 usingDeck:[self createDeck]];
     mode = [self.gameMode selectedSegmentIndex];
     [self.game updateMode: mode + 2];
     [self updateUI];
@@ -73,21 +72,21 @@
     if (self.nbRounds < 1) {
         [self startNewGame];
     }
-    [self.gameMode setEnabled:NO forSegmentAtIndex:(self.game.gameMode - 1) % 2]; //adapt UI
-    NSUInteger cardIndex = [self.cardButtons indexOfObject:sender]; //we want to know which card and get his index
+    [self.gameMode setEnabled:NO forSegmentAtIndex:(self.game.gameMode - 1) % 2];
+    NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:cardIndex];
-    [self updateUI]; //keep UI sync with model
+    [self updateUI];
 }
     
 - (IBAction)startNewGame:(id)sender {
     self.nbRounds += 1;
-    NSInteger mode = [self.gameMode selectedSegmentIndex]; //get mode chosen by user
+    NSInteger mode = [self.gameMode selectedSegmentIndex];
     if (mode == 0) {
         [self.gameMode setEnabled:YES forSegmentAtIndex:1];
     } else {
         [self.gameMode setEnabled:YES forSegmentAtIndex:0];
     }
-    _game = [[MatchismoMatchingGame alloc] initWithCardCount:30 usingDeck:[self createDeck]]; //define new game
+    _game = [[MatchismoMatchingGame alloc] initWithCardCount:30 usingDeck:[self createDeck]];
     mode = [self.gameMode selectedSegmentIndex];
     [self.game updateMode: mode + 2];
     [self updateUI];
@@ -104,18 +103,17 @@
         NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardIndex];
         [cardButton setTitle: [self titleForCard:card]forState:UIControlStateNormal];
-       // [cardButton setBackgroundImage:[self backgroundImageForCard:card]forState:UIControlStateNormal];
         cardButton.enabled = !card.matched;
     }
-    self.scoreLabel.text  = [NSString stringWithFormat:@"Score: %ld", self.game.score]; //call here set of property text of label
-    self.commentsOnGame.text  = [NSString stringWithFormat:@"%@", self.game.comment]; //call here set of property text of labe
+    self.scoreLabel.text  = [NSString stringWithFormat:@"Score: %ld", self.game.score];
+    self.commentsOnGame.text  = [NSString stringWithFormat:@"%@", self.game.comment];
 }
 
 - (NSString *)titleForCard:(Card *)card {
     return card.chosen? card.contents : @"";
 }
 
-//send for new view the content of the text for analyze it and get details on the stats
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"toSetGameScores"]) {
         if([segue.destinationViewController isKindOfClass:[ScoresInfoViewController class]]) {

@@ -4,10 +4,7 @@
 
 #import "Card.h"
 
-@interface MatchismoCard : Card // playing card is a card so inheritate from card
-
- //kind: or symbol heart, diamond, pike, club (trefle)
-
+@interface MatchismoCard : Card
 
 @property (strong, nonatomic) NSString *suit;
 @property (nonatomic) NSUInteger rank;

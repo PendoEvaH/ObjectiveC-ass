@@ -9,8 +9,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SetGameCard : Card
 
- // 1,2,3
-
 @property (strong, nonatomic) NSString *suit;
 @property (nonatomic) NSUInteger rank;
 

@@ -13,10 +13,10 @@
 @implementation CardMatchingGame
 
 - (NSMutableArray *)cards {
-    if(!_cards) { //if _cards not initialize
-        _cards = [[NSMutableArray alloc ] init]; //initialize
+    if(!_cards) {
+        _cards = [[NSMutableArray alloc ] init];
     }
-    return _cards; //_cards created
+    return _cards;
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index {
