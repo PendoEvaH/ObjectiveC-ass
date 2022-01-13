@@ -1,7 +1,5 @@
 //
 //  SetGameCarddeck.h
-//  Matchismo
-//
 //  Created by Eva Hallermeier on 30/12/2021.
 //
 
@@ -9,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SetGameCarddeck : Deck
+@interface SetGameCardDeck : Deck
 
 @end
 

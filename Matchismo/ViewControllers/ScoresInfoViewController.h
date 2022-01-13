@@ -1,7 +1,5 @@
 //
 //  ScoresInfoViewController.h
-//  Matchismo
-//
 //  Created by Eva Hallermeier on 04/01/2022.
 //
 
@@ -9,8 +7,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ScoresInfoViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UITextView *RoundsDescription;
+@interface ScoresInfoViewController : UITableViewController
+
+@property (nonatomic, strong) NSArray *scoresPerRound;
+
 @end
 
 NS_ASSUME_NONNULL_END

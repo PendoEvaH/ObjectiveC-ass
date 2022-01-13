@@ -1,17 +1,15 @@
 //
 //  SetGameCarddeck.m
-//  Matchismo
-//
 //  Created by Eva Hallermeier on 30/12/2021.
 //
 
-#import "SetGameCarddeck.h"
+#import "SetGameCardDeck.h"
 #import "SetGameCard.h"
 #import "Deck.h"
 
-@implementation SetGameCarddeck
--(instancetype)init //CTOR? or copy CTOR
-{
+@implementation SetGameCardDeck
+
+- (instancetype)init {
     self = [super init];
     if(self) {
         for(NSString *suit in [SetGameCard validSuits]) {
